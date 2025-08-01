@@ -1,7 +1,7 @@
 const http = require("http");
-const app = require("./app");
 const path = require("path");
-const connectDB = require("./db");
+const app = require("./app");
+const { connectDB } = require("./db");
 require("dotenv").config({
   path: path.join(process.cwd(), `.env.${process.env.NODE_ENV}`),
 });
