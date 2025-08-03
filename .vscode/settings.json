@@ -4,7 +4,14 @@
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "cSpell.words": ["ADMINPASSWORD", "ADMINUSERNAME", "BASICAUTH", "INITDB"],
+  "cSpell.words": [
+    "ADMINPASSWORD",
+    "ADMINUSERNAME",
+    "BASICAUTH",
+    "genai",
+    "Hateoas",
+    "INITDB"
+  ],
   "editor.codeActionsOnSave": {
     "source.organizeImports": "always"
   }

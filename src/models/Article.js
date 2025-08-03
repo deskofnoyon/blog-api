@@ -6,20 +6,24 @@ const articleSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    content: {
+    body: {
       type: String,
       required: true,
     },
     author: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      // required: true,
+    },
+    cover: {
+      type: String,
       required: true,
     },
   },
   {
     timestamps: true,
-    id: true,
   }
 );
 
-exports.Article = mongoose.model("Article", articleSchema);
+const Article = mongoose.model("Article", articleSchema);
+module.exports = Article;

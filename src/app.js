@@ -1,8 +1,12 @@
 const express = require("express");
 const applyMiddleware = require("./middleware");
+const applicationRoutes = require("./routes");
 
 const app = express();
 applyMiddleware(app);
+
+// application routes
+app.use(applicationRoutes);
 
 // health check endpoint
 app.get("/health", (req, res) => {
@@ -18,9 +22,10 @@ app.use((_req, _res, next) => {
 
 app.use((err, _req, res, _next) => {
   res.status(err.status || 500).json({
-    code: err.status,
+    success: false,
+    status: err.status,
     message: err.message,
-    error: err.error,
+    error: err?.errors,
   });
 });
 
