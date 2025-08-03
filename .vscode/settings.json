@@ -1,6 +1,18 @@
 {
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "cSpell.words": ["ADMINPASSWORD", "ADMINUSERNAME", "BASICAUTH", "INITDB"]
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "cSpell.words": [
+    "ADMINPASSWORD",
+    "ADMINUSERNAME",
+    "BASICAUTH",
+    "genai",
+    "Hateoas",
+    "INITDB"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "always"
+  }
 }
