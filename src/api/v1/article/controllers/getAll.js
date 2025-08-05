@@ -1,3 +1,4 @@
+const { paginationDefaults } = require("../../../../config/defaults");
 const { articleService } = require("../../../../lib/article");
 const {
   generatePagination,
@@ -6,11 +7,12 @@ const {
 const { transformArticles } = require("../utils/transform");
 
 const getAll = async (req, res, next) => {
-  const page = req.query.page || 1;
-  const limit = req.query.limit || 10;
-  const sortType = req.query.sortType || "desc";
-  const sortBy = req.query.sortBy || "updatedAt";
-  const search = req.query.search || "";
+  const page = req.query.page || paginationDefaults.page;
+  const limit = req.query.limit || paginationDefaults.limit;
+  const sortType = req.query.sortType || paginationDefaults.sortType;
+  const sortBy = req.query.sortBy || paginationDefaults.sortBy;
+  const search = req.query.search || paginationDefaults.search;
+
   try {
     const result = await articleService.getAll({
       page,
@@ -27,7 +29,7 @@ const getAll = async (req, res, next) => {
       totalItems,
     });
     const links = generateHateoasLinks({
-      basePath: "/articles",
+      basePath: req.url,
       page,
       limit,
       totalItems,

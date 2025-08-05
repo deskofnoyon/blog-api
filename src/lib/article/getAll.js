@@ -1,3 +1,4 @@
+const { paginationDefaults } = require("../../config/defaults");
 const { Article } = require("../../models");
 
 /**
@@ -11,11 +12,11 @@ const { Article } = require("../../models");
  * @returns {Promise<Array>} Array of article documents matching the criteria
  */
 const getAll = async ({
-  page = 1,
-  limit = 10,
-  sortType = "desc",
-  sortBy = "updatedAt",
-  search = "",
+  page = paginationDefaults.page,
+  limit = paginationDefaults.limit,
+  sortType = paginationDefaults.sortType,
+  sortBy = paginationDefaults.sortBy,
+  search = paginationDefaults.search,
 }) => {
   const sortStr = `${sortType === "desc" ? "-" : ""}${sortBy}`;
   const filter = {
@@ -51,8 +52,6 @@ const countTotal = async ({ search = "" }) => {
     throw new Error("Failed to count articles");
   }
 };
-
-
 
 module.exports = {
   getAll,
