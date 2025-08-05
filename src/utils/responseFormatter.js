@@ -4,7 +4,7 @@
 
 /**
  * Creates a standardized success response structure with all optional fields
- * @param {Object} res - Express response object
+ * @param {Express.Response} res - Express response object
  * @param {Object} options - Response options
  * @param {number} options.status - HTTP status code
  * @param {string} options.message - Success message
@@ -47,7 +47,7 @@ const sendSuccessResponse = (
 
 /**
  * Creates a standardized error response structure
- * @param {Object} res - Express response object
+ * @param {Express.Response} res - Express response object
  * @param {Object} options - Error response options
  * @param {number} options.status - HTTP status code
  * @param {string} options.message - Error message
