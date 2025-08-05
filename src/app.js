@@ -13,19 +13,27 @@ app.get("/health", (req, res) => {
   res.status(200).json({ status: "UP" });
 });
 
+// not found middleware
 app.use((_req, _res, next) => {
   const error = new Error("Requested resource not found!");
   error.status = 404;
-  error.error = "Not found";
+  error.errors = [
+    {
+      message: "Not found",
+      code: 404,
+    },
+  ];
+
   next(error);
 });
 
+// global error handler
 app.use((err, _req, res, _next) => {
   res.status(err.status || 500).json({
     success: false,
     status: err.status,
     message: err.message,
-    error: err?.errors,
+    errors: err?.errors || err.error,
   });
 });
 

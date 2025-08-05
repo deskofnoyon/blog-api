@@ -17,6 +17,7 @@ const getAll = async ({
   sortType = paginationDefaults.sortType,
   sortBy = paginationDefaults.sortBy,
   search = paginationDefaults.search,
+  select = "",
 }) => {
   const sortStr = `${sortType === "desc" ? "-" : ""}${sortBy}`;
   const filter = {
@@ -26,10 +27,16 @@ const getAll = async ({
     ],
   };
 
-  return await Article.find(filter)
+  const result = await Article.find(filter)
+    .populate("author", "name email")
     .sort(sortStr)
     .skip(page * limit - limit)
-    .limit(limit);
+    .limit(limit)
+    .select(select);
+
+  return result.map((article) => ({
+    ...article._doc,
+  }));
 };
 
 /**

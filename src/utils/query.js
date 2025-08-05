@@ -1,5 +1,5 @@
 const { paginationDefaults } = require("../config/defaults");
-const { generateQueryString } = require("./generateQueryString");
+const { generateQueryString } = require("./qs");
 
 /**
  *
@@ -93,8 +93,55 @@ const generateSimpleLinks = ({ basePath, page, limit, totalItems }) => {
   return generateHateoasLinks({ basePath, page, limit, totalItems });
 };
 
+/**
+ * Transforms an array of items by either selecting specific fields or returning full items,
+ * and adds a link property to each item
+ * @param {Object} options - The options for transforming items
+ * @param {Array} [options.items=[]] - Array of items to transform
+ * @param {Array} [options.selection=[]] - Array of field names to select from each item
+ * @param {string} [options.path="/"] - Base path to use for generating item links
+ * @throws {Error} When items or selection parameters are not arrays
+ * @returns {Array} Transformed array of items, each with selected fields and a link
+ * @example
+ * // With selection
+ * getTransformedItems({
+ *   items: [{id: 1, title: 'Post 1', content: 'Content 1'}],
+ *   selection: ['title'],
+ *   path: '/posts'
+ * }) // Returns [{title: 'Post 1', link: '/posts/1'}]
+ *
+ * // Without selection (returns full items)
+ * getTransformedItems({
+ *   items: [{id: 1, title: 'Post 1'}],
+ *   path: '/posts'
+ * }) // Returns [{id: 1, title: 'Post 1', link: '/posts/1'}]
+ */
+const getTransformedItems = ({
+  items = [],
+  selection = [],
+  basePath = "/",
+}) => {
+  if (!Array.isArray(items) || !Array.isArray(selection)) {
+    throw new Error("Invalid selection");
+  }
+
+  if (selection.length === 0) {
+    return items.map((item) => ({ ...item, link: `${basePath}/${item.id}` }));
+  }
+
+  return items.map((item) => {
+    const result = {};
+    selection.forEach((key) => {
+      result[key] = item[key];
+    });
+    result.link = `${basePath}/${item._id}`;
+    return result;
+  });
+};
+
 module.exports = {
   generateHateoasLinks,
   generateSimpleLinks,
   generatePagination,
+  getTransformedItems,
 };

@@ -1,4 +1,5 @@
 const { articleService } = require("../../../../lib/article");
+const { sendSuccessResponse } = require("../../../../utils");
 
 const create = async (req, res, next) => {
   const { title, body, cover, status } = req.body ?? {};
@@ -10,13 +11,22 @@ const create = async (req, res, next) => {
       status,
       author: req?.user,
     });
-    res.status(201).json({
-      success: true,
+
+    const links = {
+      self: `${req.url}/${article._id}`,
+      author: `${req.url}/${article._id}/author`,
+      comments: `${req.url}/${article._id}/comments`,
+    };
+
+    sendSuccessResponse(res, {
       status: 201,
       message: "Article created successfully",
       data: {
-        article,
+        article: {
+          ...article._doc,
+        },
       },
+      links,
     });
   } catch (error) {
     next(error);
