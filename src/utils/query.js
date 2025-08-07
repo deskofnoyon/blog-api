@@ -31,7 +31,6 @@ const generatePagination = ({
     totalItems,
   };
 };
-
 /**
  * Generates HATEOAS links for any resource with pagination
  * @param {Object} options - The options for generating links
@@ -52,25 +51,28 @@ const generateHateoasLinks = ({
   totalItems,
   additionalParams = {},
 }) => {
+  // Remove any existing query parameters from basePath
+  const cleanBasePath = basePath.split("?")[0];
+
   const totalPage = Math.ceil(totalItems / limit);
   const baseQuery = { ...additionalParams, limit };
   const selfQuery = { ...baseQuery, page };
-  const self = `${basePath}?${generateQueryString(selfQuery)}`;
+  const self = `${cleanBasePath}?${generateQueryString(selfQuery)}`;
 
   const prev =
     page > 1
-      ? (() => {
-          const prevQuery = { ...baseQuery, page: page - 1 };
-          return `${basePath}?${generateQueryString(prevQuery)}`;
-        })()
+      ? `${cleanBasePath}?${generateQueryString({
+          ...baseQuery,
+          page: page - 1,
+        })}`
       : null;
 
   const next =
     page < totalPage
-      ? (() => {
-          const nextQuery = { ...baseQuery, page: parseInt(page) + 1 };
-          return `${basePath}?${generateQueryString(nextQuery)}`;
-        })()
+      ? `${cleanBasePath}?${generateQueryString({
+          ...baseQuery,
+          page: parseInt(page) + 1,
+        })}`
       : null;
 
   return {
