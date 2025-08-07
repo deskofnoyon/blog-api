@@ -8,9 +8,9 @@ router.route("/v1/articles").get(controllers.getAll).post(controllers.create);
 
 router
   .route("/v1/articles/:id")
-  .get(() => {})
-  .put(() => {})
-  .patch(() => {})
-  .delete(() => {});
+  .get(controllers.getOne)
+  .put(controllers.updateOnePut)
+  .patch(controllers.updateOnePatch)
+  .delete(controllers.deleteOne);
 
 module.exports = router;
