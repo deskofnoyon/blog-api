@@ -1,4 +1,4 @@
-const { articleService } = require("../../../../lib/article");
+const articleService = require("../../../../lib/article");
 const { sendSuccessResponse } = require("../../../../utils");
 
 const getOne = async (req, res, next) => {
