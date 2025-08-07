@@ -11,6 +11,6 @@ router
   .get(controllers.getOne)
   .put(controllers.updateOnePut)
   .patch(controllers.updateOnePatch)
-  .delete(() => {});
+  .delete(controllers.deleteOne);
 
 module.exports = router;

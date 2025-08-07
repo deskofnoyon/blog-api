@@ -194,6 +194,20 @@ const updateProperties = async (id, { title, body, cover, status } = {}) => {
   return { ...article._doc };
 };
 
+const deleteOne = async (id) => {
+  if (!id) throw badRequest("id is required");
+  if (!mongoose.isValidObjectId(id)) throw badRequest("Invalid id");
+
+  const article = await Article.findById(id);
+  if (!article) throw notFound();
+
+  /**
+   * TODO: Asynchronously delete all associated comments
+   */
+
+  return article.deleteOne();
+};
+
 module.exports = {
   getAll,
   countTotal,
@@ -201,4 +215,5 @@ module.exports = {
   getOne,
   updateOrCreate,
   updateProperties,
+  deleteOne,
 };
