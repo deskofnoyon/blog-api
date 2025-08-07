@@ -41,6 +41,14 @@
  *   message: 'Validation failed',
  *   errors: ['Title is required']
  * });
+ * 
+ * // Using AppError class
+ * throw AppError.badRequest('Invalid input', ['Title is required']);
+ * throw AppError.notFound('Article not found');
+ * throw AppError.unauthorized('Access denied');
+ * 
+ * // Custom AppError
+ * throw new AppError('Custom error message', 422, { field: 'validation error' });
  */
 
 const { generateQueryString } = require("./qs");
@@ -49,10 +57,8 @@ const {
   generatePagination,
   generateSimpleLinks,
 } = require("./query");
-const {
-  sendSuccessResponse,
-  sendErrorResponse,
-} = require("./responseFormatter");
+const { sendSuccessResponse, sendErrorResponse } = require("./responseFormatter");
+const AppError = require("./AppError");
 
 module.exports = {
   generateQueryString,
@@ -61,4 +67,5 @@ module.exports = {
   generateSimpleLinks,
   sendSuccessResponse,
   sendErrorResponse,
+  AppError,
 };

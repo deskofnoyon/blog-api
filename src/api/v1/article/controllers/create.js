@@ -21,11 +21,7 @@ const create = async (req, res, next) => {
     sendSuccessResponse(res, {
       status: 201,
       message: "Article created successfully",
-      data: {
-        article: {
-          ...article._doc,
-        },
-      },
+      data: { article },
       links,
     });
   } catch (error) {
