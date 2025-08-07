@@ -8,7 +8,7 @@ router.route("/v1/articles").get(controllers.getAll).post(controllers.create);
 
 router
   .route("/v1/articles/:id")
-  .get(() => {})
+  .get(controllers.getOne)
   .put(() => {})
   .patch(() => {})
   .delete(() => {});

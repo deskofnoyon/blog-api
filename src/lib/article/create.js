@@ -25,7 +25,10 @@ const create = async ({
     status,
     author: author?.id,
   });
-  return article.save();
+  await article.save();
+  return {
+    ...article._doc,
+  };
 };
 
 module.exports = { create };
