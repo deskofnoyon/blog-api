@@ -1,5 +1,5 @@
 const { paginationDefaults } = require("../../../../config/defaults");
-const { articleService } = require("../../../../lib/article");
+const articleService = require("../../../../lib/article");
 const {
   generatePagination,
   generateHateoasLinks,
