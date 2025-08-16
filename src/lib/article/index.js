@@ -2,7 +2,7 @@ const { paginationDefaults } = require("../../config/defaults");
 const { Article } = require("../../models");
 const mongoose = require("mongoose");
 const { badRequest, notFound } = require("../../utils/AppError");
-
+const updateOneJSONPatch = require("./updateOneJSONPatch");
 /**
  * Retrieves a paginated list of articles with sorting and search capabilities
  * @param {Object} options - The options for retrieving articles
@@ -215,5 +215,6 @@ module.exports = {
   getOne,
   updateOrCreate,
   updateProperties,
+  updateOneJSONPatch,
   deleteOne,
 };

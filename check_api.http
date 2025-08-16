@@ -1,1 +1,22 @@
 GET http://localhost:5000/health
+
+###
+
+
+# Get all articles
+GET http://localhost:5000/v1/articles
+
+
+###
+
+
+
+PATCH http://localhost:5000/v2/articles/6894d288065038e96095d987
+Content-Type: application/json
+
+{
+  "operations": [
+  {"op": "replace", "path": "/name", "value": "New Name"},
+  {"op": "add", "path": "/author", "value": "Noyon"}
+  ]
+}
